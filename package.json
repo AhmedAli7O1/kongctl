@@ -1,6 +1,6 @@
 {
   "name": "kongctl",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "simple kong command line tool",
   "main": "index.js",
   "bin": {

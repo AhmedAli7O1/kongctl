@@ -2,6 +2,8 @@
 
 a simple [kong](https://konghq.com/) commad line tool, to load api configurations from JSON file.
 
+compatible with Kong version >= 0.13.1
+
 ### setup
 
 ```bash
@@ -50,4 +52,60 @@ for the full commands list
 
 ```bash
 kongctl --help
+```
+
+### JSON File Structure
+
+```json
+{
+  "services": [
+    {
+      "name": "json-server",
+      "protocol": "http",
+      "host": "example-server",
+      "port": 3000,
+      "routes": [
+        {
+          "protocols": ["http"],
+          "paths": [
+            "/json-server"
+          ],
+          "strip_path": true,
+          "preserve_host": true,
+          "plugins": [
+            {
+              "name": "acl",
+              "config": {
+                "whitelist": "user:json-server"
+              }
+            },
+            {
+              "name": "key-auth",
+              "config": {
+                "key_names": "api_key, api-key"
+              }
+            }
+          ] 
+        }
+      ]
+    }
+  ],
+
+  "consumers": [
+    {
+      "username": "jsons",
+      "acls": [
+        "user:json-server"
+      ],
+      "keyAuth": true
+    },
+    {
+      "username": "lol",
+      "acls": [
+        "user:json-serversssss"
+      ],
+      "keyAuth": "asdkjkj544wdqwd-custom-key"
+    }
+  ]
+}
 ```
