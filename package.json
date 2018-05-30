@@ -1,6 +1,6 @@
 {
   "name": "kongctl",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "simple kong command line tool",
   "main": "index.js",
   "bin": {
@@ -9,7 +9,12 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "keywords": ["kong", "api", "gateway", "cmd"],
+  "keywords": [
+    "kong",
+    "api",
+    "gateway",
+    "cmd"
+  ],
   "author": "",
   "license": "MIT",
   "dependencies": {

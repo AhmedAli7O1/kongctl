@@ -14,7 +14,7 @@ class Kongctl {
 
   async create() {
     try {
-      const { services, consumers } = require(path.join(process.cwd(), this.config.file));
+      const { services, consumers } = this.loadConfig();
 
       if (!_.isEmpty(services)) {
         for (const serviceData of services) {
@@ -32,7 +32,7 @@ class Kongctl {
 
     }
     catch (e) {
-      throw new Error(`can\'t load kong configurations at ${this.config.file}`);
+      console.log(e);
     }
   }
 
@@ -44,6 +44,15 @@ class Kongctl {
     await route.delete();
     await service.delete();
     await consumer.delete();
+  }
+
+  loadConfig () {
+    try {
+      return require(path.join(process.cwd(), this.config.file));
+    }
+    catch (e) {
+      throw new Error(`can\'t load kong configurations from ${this.config.file}`);
+    }
   }
 
 }
