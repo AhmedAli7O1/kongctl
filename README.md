@@ -1,6 +1,6 @@
 # kongctl
 
-a simple [kong](https://konghq.com/) commad line tool, to load api configurations from JSON file.
+a simple [kong](https://konghq.com/) commad line tool, to import/export api configurations from JSON file.
 
 compatible with Kong version >= 0.13.1
 
@@ -13,7 +13,8 @@ npm i -g kongctl
 ### commands
 
 ```bash
-  create                 create services
+  import                 import all kong configurations from json file
+  export                 export all kong configurations to a json file
   delete-all             delete everything
   get-services           list all services
   get-routes             list all routes
@@ -35,8 +36,11 @@ npm i -g kongctl
 
 ### examples
 ```bash
-# create
-kongctl -h http://localhost:8001 --file=config.json create
+# import from json file
+kongctl -h http://localhost:8001 import -f config.json
+
+# export to a json file
+kongctl -h http://localhost:8001 export -f backup.json
 
 # delete everything
 kongctl -h http://localhost:8001 delete-all

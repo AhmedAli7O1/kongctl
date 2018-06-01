@@ -2,6 +2,8 @@
 
 const _ = require('lodash');
 const Kong = require('./kong');
+const ACL = require('./acl');
+const KeyAuth = require('./keyAuth');
 
 class Consumer extends Kong{
 
@@ -14,19 +16,17 @@ class Consumer extends Kong{
     console.log(`consumer ${data.username || data.custom_id}`);
 
     for (const group of acls) {
-      await this.associateGroup({ group });
+      const acl = new ACL({ host: this.host });
+      await acl.create({ consumerId: this.id, group });
       console.log(`group ${group}`);
     }
 
     if (keyAuth){
-      const { key } = await this.createKeyAuth(keyAuth);
+      const keyAuthObj = new KeyAuth({ host: this.host });
+      const { key } = await keyAuthObj.create({ consumerId: this.id, keyAuth });
       console.log(`key ${key}`);
     }
 
-  }
-
-  async associateGroup (data) {
-    await super.create('consumers', data, [this.id, 'acls']);
   }
 
   async createKeyAuth (keyAuth) {

@@ -1,0 +1,51 @@
+{
+  "services": [
+    {
+      "name": "json-server",
+      "protocol": "http",
+      "host": "example-server",
+      "port": 3000,
+      "routes": [
+        {
+          "protocols": ["http"],
+          "paths": [
+            "/json-server"
+          ],
+          "strip_path": true,
+          "preserve_host": true,
+          "plugins": [
+            {
+              "name": "acl",
+              "config": {
+                "whitelist": "user:json-server"
+              }
+            },
+            {
+              "name": "key-auth",
+              "config": {
+                "key_names": "api_key, api-key"
+              }
+            }
+          ] 
+        }
+      ]
+    }
+  ],
+
+  "consumers": [
+    {
+      "username": "jsons",
+      "acls": [
+        "user:json-server"
+      ],
+      "keyAuth": true
+    },
+    {
+      "username": "lol",
+      "acls": [
+        "user:json-serversssss"
+      ],
+      "keyAuth": "asdkjkj544wdqwd-custom-key"
+    }
+  ]
+}

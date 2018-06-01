@@ -13,10 +13,12 @@ const Consumer = require('./consumer');
 cli.parse(
   {
     host: ['h', 'kong instance host', 'string'],
-    file: ['f', 'services json file path', 'file']
+    file: ['f', 'path for the json file containing kong configurations', 'file']
   },
   {
-    'create': 'create services',
+    'import': 'import all kong configurations from json file',
+    'export': 'export all kong configurations to a json file',
+
     'delete-all': 'delete everything',
 
     'get-services': 'list all services',
@@ -41,9 +43,14 @@ const consumer = new Consumer(cli.options);
 async function exec() {
 
   switch (cli.command) {
-    case 'create':
+    case 'import':
       requiredOption(['host', 'file']);
       await kongctl.create();
+      break;
+
+    case 'export':
+      requiredOption(['host', 'file']);
+      await kongctl.get();
       break;
 
     case 'get-services':
